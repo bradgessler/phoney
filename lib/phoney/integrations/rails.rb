@@ -4,8 +4,8 @@ module Phoney
       class << self
         # Strap all the helper methods into rails
         def init!
-          ::ActiveRecord::Base.send(:include, Phoney::Rails::ActiveRecord)
-          ::ActionController::Base.helper(Phoney::Rails::Helpers)
+          ::ActiveRecord::Base.send :include, ActiveRecord
+          ::ActionController::Base.helper Helpers
         end
       end
     
@@ -30,23 +30,21 @@ module Phoney
       end
     
       module Helpers
-        @@automagical_fields = %w(phone_number phonenumber telephone_number telephonenumber phone telephone number)
+        @@automagical_attributes = %w(phone_number phonenumber telephone_number telephonenumber phone telephone number)
         
         # Try to guess the method on the class that will return a phone number
         def phone_number obj
-          raise obj.inspect
-          
-          if meth = @@automagical_fields.detect{|meth| obj.respond_to?(meth) }
+          if meth = @@automagical_attributes.detect{|meth| obj.respond_to?(meth) }
             format_phone_number obj.send(meth)
           end
         end
         
         # Format a number into a phone number. I ripped those code from Rails, but its not good!
-        def format_phone_number number, opts={}
+        def format_phone_number number, options={}
           number       = Phoney.canonicalize number unless number.nil?
           options      = options.symbolize_keys
           area_code    = options[:area_code] || true
-          delimiter    = options[:delimiter] || "-"
+          delimiter    = options[:delimiter] || " "
           extension    = options[:extension].to_s.strip || nil
           country_code = options[:country_code] || '1'
           

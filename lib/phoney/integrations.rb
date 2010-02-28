@@ -1,5 +1,5 @@
 module Phoney
   module Integrations
-    autoload :Rails, 'integrations/rails'
+    autoload :Rails, 'phoney/integrations/rails'
   end
 end

@@ -24,7 +24,12 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/phoney.rb",
+     "lib/phoney/formatting.rb",
+     "lib/phoney/integrations.rb",
+     "lib/phoney/integrations/rails.rb",
+     "phoney.gemspec",
      "rails/init.rb",
+     "spec/integrations_spec.rb",
      "spec/phoney_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"

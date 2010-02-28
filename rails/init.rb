@@ -1,2 +1,2 @@
 require 'phoney'
-Phoney::Rails.init! if defined? ::Rails
+Phoney::Integrations::Rails.init! if defined? ::Rails

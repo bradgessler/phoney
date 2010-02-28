@@ -1,3 +1,5 @@
+$:.push File.dirname(__FILE__)
+
 module Phoney
   autoload :Integrations, 'phoney/integrations'
   autoload :Formatting,   'phoney/formatting'
