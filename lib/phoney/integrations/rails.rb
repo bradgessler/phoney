@@ -8,18 +8,18 @@ module Phoney
           ::ActionController::Base.helper Helpers
         end
       end
-    
+      
       module ActiveRecord
         def self.included(base)
           base.send :extend, ClassMethods
         end
-      
+        
         module ClassMethods
           def phone_numbers attrs
             Array(attrs).each do |attr|
               class_eval %(
                 def #{attr}_with_phone_number_canonicalization=(num)
-                  #{attr}_without_phone_number_canonicalization = Phoney.canonicalize(num)
+                  #{attr}_without_phone_number_canonicalization = Phoney::PhoneNumber.new(num)
                 end
                 alias_method_chain :#{attr}, :phone_number_canonicalization
               )
@@ -28,7 +28,7 @@ module Phoney
           alias :phone_number :phone_numbers
         end
       end
-    
+      
       module Helpers
         @@automagical_attributes = %w(phone_number phonenumber telephone_number telephonenumber phone telephone number)
         
@@ -41,27 +41,7 @@ module Phoney
         
         # Format a number into a phone number. I ripped those code from Rails, but its not good!
         def format_phone_number number, options={}
-          number       = Phoney.canonicalize number unless number.nil?
-          options      = options.symbolize_keys
-          area_code    = options[:area_code] || true
-          delimiter    = options[:delimiter] || " "
-          extension    = options[:extension].to_s.strip || nil
-          country_code = options[:country_code] || '1'
-          
-          begin
-            str = ""
-            str << "+#{country_code}#{delimiter}" unless country_code.blank?
-            str << if area_code
-              number.gsub!(/([0-9]{1,3})([0-9]{3})([0-9]{4}$)/,"(\\1) \\2#{delimiter}\\3")
-            else
-              number.gsub!(/([0-9]{0,3})([0-9]{3})([0-9]{4})$/,"\\1#{delimiter}\\2#{delimiter}\\3")
-              number.starts_with?('-') ? number.slice!(1..-1) : number
-            end
-            str << " x #{extension}" unless extension.blank?
-            str
-          rescue
-            number
-          end
+          PhoneNumber.new(number).to_s
         end
       end
     end
