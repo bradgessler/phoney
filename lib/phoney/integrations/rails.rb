@@ -15,6 +15,8 @@ module Phoney
         end
         
         module ClassMethods
+          # Decorate ActiveRecord attributes as a Phoney::PhoneNumber class, and back into 
+          # a format that the database can store.
           def phone_numbers attrs
             Array(attrs).each do |attr|
               class_eval %(

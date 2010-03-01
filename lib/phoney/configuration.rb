@@ -12,8 +12,9 @@ module Phoney
     @@default_format = :e164
     
     def initialize
-      self.formats = @@formats
+      self.formats        = @@formats
       self.default_format = @@default_format
+      
       yield self if block_given?
     end
   end

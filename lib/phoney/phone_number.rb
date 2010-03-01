@@ -1,15 +1,11 @@
 module Phoney
-  def PhoneNumber(number)
+  # Accepts various incomi
+  def PhoneNumber number
     number.is_a?(PhoneNumber) ? number : PhoneNumber.new(number)
   end
   
   # TODO make this work for i18n numbers
   class PhoneNumber
-    @@formats = {
-      :db => Proc.new{|n| n.digits },
-      :standard => Proc.new{|n| "+#{n.country_code} (#{n.area_code}) #{n.number}" }
-    }
-    
     attr_accessor :digits
     
     def initialize digits
