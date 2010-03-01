@@ -33,8 +33,8 @@ module Phoney
       digits[3...10]
     end
     
-    def to_s(format=:standard)
-      @@formats[format].call(self)
+    def to_s(format=Phoney.configuration.default_format)
+      Phoney.configuration.formats[format].call(self)
     end
     
     # Strips all non-digits out of the phone number

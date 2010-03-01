@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/phoney.rb",
      "lib/phoney/configuration.rb",
-     "lib/phoney/formatting.rb",
      "lib/phoney/integrations.rb",
      "lib/phoney/integrations/rails.rb",
      "lib/phoney/phone_number.rb",

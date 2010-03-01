@@ -1,6 +1,6 @@
 = Phoney
 
-Deal with phone numbers in Ruby. Special integrations with Rails.
+Deal with phone numbers in Ruby. Integrates with Rails.
 
 = A Conversation with Phoney
 
