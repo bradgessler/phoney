@@ -1,16 +1,21 @@
-= phoney
+= Phoney
 
-Description goes here.
+Deal with phone numbers in Ruby. Special integrations with Rails.
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+= A Conversation with Phoney
+
+    >> p = Phoney::PhoneNumber.new('+1 555.312.1990')
+    => #<Phoney::PhoneNumber:0x101536bf8 @digits="15553121990">
+    >> p.to_s
+    => "+1 (555) 5312199"
+    >> p.to_s(:db)
+    => "15553121990"
+    >> p.area_code
+    => "555"
+    >> p.country_code
+    => "1"
+    >> p.number
+    => "5312199"
 
 == Copyright
 
